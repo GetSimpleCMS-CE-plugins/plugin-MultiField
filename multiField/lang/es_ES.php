@@ -19,6 +19,10 @@ $i18n = array(
 	"SAVE" 				=> "Guardar",
 	"GETPHOTO" 			=> "Elige una foto",
 
+	"POSITION" => "Posición",
+	"UP"=>"Arriba",
+	"DOWN" =>"Abajo",
+
 	//input
 
 	"TEXT" 				=> "Texto",

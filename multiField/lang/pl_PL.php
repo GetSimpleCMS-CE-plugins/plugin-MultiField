@@ -18,7 +18,9 @@ $i18n = array(
 	"DONE" => "Gotowe",
 	"SAVE" => "Zapisz Pola",
 	"GETPHOTO" => "Wybierz zdjęcie",
-
+	"POSITION" => "Pozycja",
+	"UP" => "Góra",
+	"DOWN" => "Dół",
 	//input
 
 	"TEXT" => "Text",

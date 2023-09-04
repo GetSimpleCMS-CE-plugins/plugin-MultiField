@@ -18,6 +18,9 @@ $i18n = array(
 	"DONE" => "Done",
 	"SAVE" => "Save Inputs",
 	"GETPHOTO" => "Choose a photo",
+	"POSITION" => "Position",
+	"UP"=>"Up",
+	"DOWN" =>"Down",
 
 	//input
 
