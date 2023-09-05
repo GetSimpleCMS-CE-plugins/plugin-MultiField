@@ -103,7 +103,7 @@ if (file_exists($fileinput)) {
 						<input style="margin:5px 0;display:block;" type="hidden" :value="data['label']" name="label-multifield[]">
 						<input style="margin:5px 0;display:block;" type="hidden" :value="data['type']" name="type-multifield[]">
 						<div style="display:flex;gap:2px">
-							<input style="margin:5px 0;display:inline-block; width:80%" :type="data['type']" :value="dater[data['label']]['value']" :data-name="dater[data['label']]['label']" class="foto" name="multifield[]">
+							<input style="margin:5px 0;display:inline-block; width:80%" :type="data['type']" :value="dater[data['label']]['value']" :data-name="data['label']" class="foto" name="multifield[]">
 							<button style="background:#000;color:#fff;border:none;padding:3px;cursor:pointer;border-radius:2px;width:20%" @click.prevent="window.open(`<?php echo $SITEURL; ?>plugins/multiField/files/imagebrowser.php?&func=multifield[]&count=${index}`,'myWindow','tolbar=no,scrollbars=no,menubar=no,width=500,height=500')"><?php echo i18n_r('multiField/GETPHOTO'); ?></button>
 						</div>
 					</div>
