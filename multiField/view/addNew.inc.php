@@ -180,7 +180,14 @@ $posFile = GSDATAOTHERPATH . 'multiField/position-'.$_GET['creator'].'.txt';
 if(file_exists($posFile)){
 
 	echo '<script>
-	document.querySelector(".pos").value = "'.file_get_contents($posFile).'"
+
+	window.addEventListener("load",()=>{
+
+		document.querySelector(".pos").value = "'.file_get_contents($posFile).'"
+
+
+	});
+
 	</script>';
 
 };
@@ -223,7 +230,7 @@ if(file_exists($posFile)){
 			</select>
 
 			<br>
-			<button @click.prevent="inputList.push({label:title,value:null,type:select}), title='title'+ count++, console.log(inputList)" x-html="buttonAdd"></button>
+			<button @click.prevent="inputList[title] = {label:title,value:null,type:select}, title='title'+ count++, console.log(inputList)" x-html="buttonAdd"></button>
 		</div>
 
 		<br>
