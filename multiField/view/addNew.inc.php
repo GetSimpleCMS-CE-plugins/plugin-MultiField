@@ -173,37 +173,34 @@ $url = $SITEURL . $GSADMIN . '/load.php?id=multiField';; ?>
 
 
 
-<?php 
+	<?php
 
-$posFile = GSDATAOTHERPATH . 'multiField/position-'.$_GET['creator'].'.txt';
+	$posFile = GSDATAOTHERPATH . 'multiField/position-' . $_GET['creator'] . '.txt';
 
-if(file_exists($posFile)){
+	if (file_exists($posFile)) {
 
-	echo '<script>
+		echo '<script>
 
 	window.addEventListener("load",()=>{
 
-		document.querySelector(".pos").value = "'.file_get_contents($posFile).'"
+		document.querySelector(".pos").value = "' . file_get_contents($posFile) . '"
 
 
 	});
 
 	</script>';
-
-};
-
-;?>
+	};; ?>
 
 
 
 	<div x-data="content">
 
-	
-	<h4><i x-text="positionname"></i></h4>
-<select name="position" class="pos" style="padding:10px;background:#fafafa;border:solid 1px #ddd;width:100%;margin:10px 0;border-radius:5px;">
-<option x-text="up" name="up"></option>
-<option x-text="bottom" name="bottom"></option>
-</select>
+
+		<h4><i x-text="positionname"></i></h4>
+		<select name="position" class="pos" style="padding:10px;background:#fafafa;border:solid 1px #ddd;width:100%;margin:10px 0;border-radius:5px;">
+			<option x-text="up" name="up"></option>
+			<option x-text="bottom" name="bottom"></option>
+		</select>
 
 		<h4><i x-text="selectPage"></i></h4>
 
@@ -215,7 +212,7 @@ if(file_exists($posFile)){
 			}; ?>
 		</select>
 
-		 
+
 
 
 		<h4><i x-text="addNewInput"></i></h4>
@@ -230,7 +227,7 @@ if(file_exists($posFile)){
 			</select>
 
 			<br>
-			<button @click.prevent="inputList[title] = {label:title,value:null,type:select}, title='title'+ count++, console.log(inputList)" x-html="buttonAdd"></button>
+			<button @click.prevent="inputList[count]={'label':title,'value':'','type':select}, title='title' + count++, console.log(inputList)" x-html="buttonAdd"></button>
 		</div>
 
 		<br>
@@ -241,7 +238,7 @@ if(file_exists($posFile)){
 		<div style="margin:10px 0;" id="sortable">
 			<template x-for="(input,index) in inputList" :key="index">
 				<div class="form-input">
-					<label  x-text="input.label.replace(/-/g,' ')"></label>
+					<label x-text="input.label.replace(/-/g,' ')"></label>
 					<span class="shortcode tpl" style="text-align:center">&#60;?php multiFields('<span x-text="input.label.replace(/ /g,'-')"></span>') ;?&#62;</span>
 					<input :value="input.label.replace(/-/g,' ')" required style="width:100%;" x-model="input.label">
 					<input type="hidden" name="multi-field-label[]" :value="input.label.replace(/ /g,'-')" placeholder="label">
@@ -292,9 +289,9 @@ if(file_exists($posFile)){
 		sortBtn: '<?php echo i18n_r('multiField/ORDER'); ?> <img style="width:15px;filter:invert(100%);margin-left:5px;" src="<?php echo $SITEURL . "plugins/multiField/img/order.svg"; ?>">',
 		sortBtnDone: '<?php echo i18n_r('multiField/DONE'); ?> <img style="width:15px;filter:invert(100%);margin-left:5px;" src="<?php echo $SITEURL . "plugins/multiField/img/done.svg"; ?>">',
 
-		positionname:'<?php echo i18n_r('multiField/POSITION'); ?>',
-		up:'<?php echo i18n_r('multiField/UP'); ?>',
-		bottom:'<?php echo i18n_r('multiField/DOWN'); ?>',
+		positionname: '<?php echo i18n_r('multiField/POSITION'); ?>',
+		up: '<?php echo i18n_r('multiField/UP'); ?>',
+		bottom: '<?php echo i18n_r('multiField/DOWN'); ?>',
 
 
 		sortable: function() {
@@ -339,7 +336,7 @@ if (isset($_POST['submit'])) {
 	}
 
 	file_put_contents(GSDATAOTHERPATH . 'multiField/settings-' . $_POST['filename'] . '.json', $final);
-	file_put_contents(GSDATAOTHERPATH . 'multiField/position-'.$_POST['filename'].'.txt', $_POST['position']);
+	file_put_contents(GSDATAOTHERPATH . 'multiField/position-' . $_POST['filename'] . '.txt', $_POST['position']);
 
 	global $SITEURL;
 	global $GSADMIN;
