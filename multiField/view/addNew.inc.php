@@ -198,8 +198,8 @@ $url = $SITEURL . $GSADMIN . '/load.php?id=multiField';; ?>
 
 		<h4><i x-text="positionname"></i></h4>
 		<select name="position" class="pos" style="padding:10px;background:#fafafa;border:solid 1px #ddd;width:100%;margin:10px 0;border-radius:5px;">
-			<option x-text="up" name="up"></option>
-			<option x-text="bottom" name="bottom"></option>
+			<option x-text="up" value="up"></option>
+			<option x-text="bottom" value="bottom"></option>
 		</select>
 
 		<h4><i x-text="selectPage"></i></h4>
@@ -292,6 +292,8 @@ $url = $SITEURL . $GSADMIN . '/load.php?id=multiField';; ?>
 		positionname: '<?php echo i18n_r('multiField/POSITION'); ?>',
 		up: '<?php echo i18n_r('multiField/UP'); ?>',
 		bottom: '<?php echo i18n_r('multiField/DOWN'); ?>',
+		uper:'up',
+		bottomer:'bottom',
 
 
 		sortable: function() {

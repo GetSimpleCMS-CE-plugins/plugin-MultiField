@@ -90,6 +90,7 @@
 
 <?php if (isset($_GET['delete'])) {
     unlink(GSDATAOTHERPATH . 'multiField/' . $_GET['delete'] . '.json');
+    unlink(GSDATAOTHERPATH . 'multiField/settings-' . $_GET['delete'] . '.json');
 
     echo "<script> window.location.href = '" . $SITEURL . $GSADMIN . "/load.php?id=multiField'</script>";
 }; ?>
