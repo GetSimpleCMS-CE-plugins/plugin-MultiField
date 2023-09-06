@@ -140,7 +140,7 @@ $posFile = GSDATAOTHERPATH . 'multiField/position-' . $_GET['id'] . '.txt';
 
 
 
-if (file_exists($posFile) && file_get_contents($posFile) == 'Bottom') : ?>
+if (file_exists($posFile) && file_get_contents($posFile) == 'bottom') : ?>
 
 	<script>
 		window.addEventListener("load", () => {
