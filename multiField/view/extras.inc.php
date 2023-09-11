@@ -46,8 +46,23 @@ if (file_exists($fileinput)) {
 ?>
 
 <?php
+
+global $EDLANG;
+global $EDTOOL;
 global $toolbar;
-global $options;
+global $EDOPTIONS;
+
+if(isset($EDTOOL)) $EDTOOL = returnJsArray($EDTOOL);
+if(isset($toolbar)) $toolbar = returnJsArray($toolbar); // handle plugins that corrupt this
+
+else if(strpos(trim($EDTOOL),'[[')!==0 && strpos(trim($EDTOOL),'[')===0){ $EDTOOL = "[$EDTOOL]"; }
+
+if(isset($toolbar) && strpos(trim($toolbar),'[[')!==0 && strpos($toolbar,'[')===0){ $toolbar = '[$toolbar]'; }
+$toolbar = isset($EDTOOL) ? ",toolbar: ".trim($EDTOOL,",") : '';
+$options = isset($EDOPTIONS) ? ','.trim($EDOPTIONS,",") : '';
+
+
+
 if (file_exists($file)) : ?>
 
 
@@ -65,6 +80,8 @@ if (file_exists($file)) : ?>
 						<textarea x-html="dater[data['label']]['value']" x-init="CKEDITOR.replace( $el, {
 						skin : 'getsimple',
 						forcePasteAsPlainText : true,
+						language : '<?php global $EDLANG; echo $EDLANG; ?>',
+					defaultLanguage : 'en',
 						entities : false,
 						// uiColor : '#FFFFFF',
 						height: '250px',
@@ -74,9 +91,9 @@ if (file_exists($file)) : ?>
 						filebrowserBrowseUrl : 'filebrowser.php?type=all',
 						filebrowserImageBrowseUrl : 'filebrowser.php?type=images',
 						filebrowserWindowWidth : '730',
-						filebrowserWindowHeight : '500',
+						filebrowserWindowHeight : '500'
 			<?php echo $toolbar; ?>
-			<?php echo $options; ?>											
+			<?php  echo  str_replace('"',"'",$options); ?>											
 						});
 						" name="multifield[]">
 						</textarea>
