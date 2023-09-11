@@ -15,10 +15,10 @@
 	div.multifields div input {
 		width: 97%;
 		padding: 7px;
-	
+
 		border-radius: 5px;
 		max-height: 300px;
-		border:solid 1px #ddd;
+		border: solid 1px #ddd;
 	}
 
 	div.multifields div textarea {
@@ -45,7 +45,10 @@ if (file_exists($fileinput)) {
 
 ?>
 
-<?php if (file_exists($file)) : ?>
+<?php
+global $toolbar;
+global $options;
+if (file_exists($file)) : ?>
 
 
 
@@ -71,8 +74,9 @@ if (file_exists($fileinput)) {
 						filebrowserBrowseUrl : 'filebrowser.php?type=all',
 						filebrowserImageBrowseUrl : 'filebrowser.php?type=images',
 						filebrowserWindowWidth : '730',
-						filebrowserWindowHeight : '500'
-						,toolbar: 'advanced'										
+						filebrowserWindowHeight : '500',
+			<?php echo $toolbar; ?>
+			<?php echo $options; ?>											
 						});
 						" name="multifield[]">
 						</textarea>
