@@ -135,14 +135,14 @@ if (file_exists($file)) : ?>
 						<label x-text="data['label'].replace(/-/g,' ')"></label>
 						<input style="margin:5px 0;display:block;" type="hidden" :value="data['label']" name="label-multifield[]">
 						<input style="margin:5px 0;display:block;" type="hidden" :value="dater[data]['type']" name="type-multifield[]">
-						<select name="multifield[]">
+						<select name="multifield[]" style="background:#fff;border:solid 1px #ddd;width:100%;padding:10px;border-radius:5px;">
 							<?php foreach (glob(GSDATAPAGESPATH . '*.xml') as $file) {
 								$xmlFile = simplexml_load_file($file);
 								$filePure = pathinfo($file)['filename'];
 								global $SITEURL;
 								global $GSADMIN;
 
-								$link = $SITEURL . $GSADMIN . '/' . $filePure;
+								$link = $SITEURL  . $filePure;
 								echo '<option :selected="dater[data[`label`]][`value`] == $el.value" value="' . $link . '">' . $xmlFile->title . '</option>';
 							}; ?>
 						</select>
