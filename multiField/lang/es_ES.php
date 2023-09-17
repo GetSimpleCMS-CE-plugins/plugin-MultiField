@@ -19,9 +19,10 @@ $i18n = array(
 	"SAVE" 				=> "Guardar",
 	"GETPHOTO" 			=> "Elige una foto",
 
-	"POSITION" => "Posición",
-	"UP"=>"Arriba",
-	"DOWN" =>"Abajo",
+	"POSITION" => 'Posición (Funciona para "Todo" solo si no se comparte con otros campos creados para una página específica.)',
+	"UP" => "Arriba",
+	"DOWN" => "Abajo",
+	"ALL" => 'Todo',
 
 	//input
 

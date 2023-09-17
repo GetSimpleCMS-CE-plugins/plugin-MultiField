@@ -18,10 +18,10 @@ $i18n = array(
 	"DONE" => "Done",
 	"SAVE" => "Save Inputs",
 	"GETPHOTO" => "Choose a photo",
-	"POSITION" => "Position",
+	"POSITION" => 'Position (Works for "All" only if not shared with other fields created for a specific page.)',
 	"UP"=>"Up",
 	"DOWN" =>"Down",
-
+	"ALL" => 'All',
 	//input
 
 	"TEXT" => "Text",

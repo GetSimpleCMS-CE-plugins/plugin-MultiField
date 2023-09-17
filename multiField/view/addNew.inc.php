@@ -205,6 +205,7 @@ $url = $SITEURL . $GSADMIN . '/load.php?id=multiField';; ?>
 		<h4><i x-text="selectPage"></i></h4>
 
 		<select name="filename" style="padding:10px;background:#fafafa;border:solid 1px #ddd;width:100%;margin:10px 0;border-radius:5px;">
+			<option value="allmultifield">All</option>
 			<?php foreach (glob(GSDATAPAGESPATH . '*.xml') as $file) {
 				$xmlFile = simplexml_load_file($file);
 				$filePure = pathinfo($file)['filename'];
@@ -272,9 +273,9 @@ $url = $SITEURL . $GSADMIN . '/load.php?id=multiField';; ?>
 		addNewInput: '<?php echo i18n_r('multiField/ADDNEWINPUT'); ?>',
 		sureQuestion: '<?php echo i18n_r('multiField/REMOVEQUESTION'); ?>',
 
-		selectList: ["text", "textarea", "wysywig", "color", "date", "foto", "link"],
+		selectList: ["text", "textarea", "wysywig", "color", "date", "foto", "link",'checkbox', 'dropdown'],
 		selectListLang: ["<?php echo i18n_r('multiField/TEXT'); ?>", "<?php echo i18n_r('multiField/TEXTAREA'); ?>", "<?php echo i18n_r('multiField/WYSYWIG'); ?>", "<?php echo i18n_r('multiField/COLOR'); ?>",
-			"<?php echo i18n_r('multiField/DATE'); ?>", "<?php echo i18n_r('multiField/FOTO'); ?>", "<?php echo i18n_r('multiField/LINK'); ?>"
+			"<?php echo i18n_r('multiField/DATE'); ?>", "<?php echo i18n_r('multiField/FOTO'); ?>", "<?php echo i18n_r('multiField/LINK'); ?>", 'Checkbox', 'Dropdown'
 		],
 		inputList: <?php
 					if ($_GET['creator'] !== '') {
@@ -292,8 +293,8 @@ $url = $SITEURL . $GSADMIN . '/load.php?id=multiField';; ?>
 		positionname: '<?php echo i18n_r('multiField/POSITION'); ?>',
 		up: '<?php echo i18n_r('multiField/UP'); ?>',
 		bottom: '<?php echo i18n_r('multiField/DOWN'); ?>',
-		uper:'up',
-		bottomer:'bottom',
+		uper: 'up',
+		bottomer: 'bottom',
 
 
 		sortable: function() {

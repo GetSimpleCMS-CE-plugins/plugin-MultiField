@@ -18,9 +18,10 @@ $i18n = array(
 	"DONE" => "Gotowe",
 	"SAVE" => "Zapisz Pola",
 	"GETPHOTO" => "Wybierz zdjęcie",
-	"POSITION" => "Pozycja",
+	"POSITION" => 'Pozycja (Działa dla "All" tylko jeśli nie jest współdzielone z innymi polami stworzonymi dla konkretnej strony.)',
 	"UP" => "Góra",
 	"DOWN" => "Dół",
+	"ALL" => 'Wszystkie',
 	//input
 
 	"TEXT" => "Text",
