@@ -106,7 +106,7 @@ $options = isset($EDOPTIONS) ? ',' . trim($EDOPTIONS, ",") : '';
 					<label x-text="data['label'].replace(/-/g,' ')"></label>
 					<input style="margin:5px 0;display:block;" type="hidden" :value="data['label']" name="label-multifield[]">
 					<input style="margin:5px 0;display:block;" type="hidden" :value="data['type']" name="type-multifield[]">
-					<textarea x-html="dater[data['label']]['value'] === undefined ? '' : dater[data['label']]['value'] " x-init="CKEDITOR.replace( $el, {
+					<textarea x-html="dater[data['label']]!==undefined ? dater[data['label']]['value']:''" x-init="CKEDITOR.replace( $el, {
 						skin : 'getsimple',
 						forcePasteAsPlainText : true,
 						language : '<?php global $EDLANG;
@@ -136,7 +136,8 @@ $options = isset($EDOPTIONS) ? ',' . trim($EDOPTIONS, ",") : '';
 					<label x-text="data['label'].replace(/-/g,' ')"></label>
 					<input style="margin:5px 0;display:block;" type="hidden" :value="data['label']" name="label-multifield[]">
 					<input style="margin:5px 0;display:block;" type="hidden" :value="data['type']" name="type-multifield[]">
-					<textarea :x-bind:x-html="dater[data['label']]['value']" style="width:100%;padding:10px;box-sizing:border-box;" name="multifield[]"></textarea>
+				 
+					<textarea  x-html="dater[data['label']]!==undefined ? dater[data['label']]['value']:''" style="width:100%;padding:10px;box-sizing:border-box;" name="multifield[]"></textarea>
 				</div>
 			</template>
 
