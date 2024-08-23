@@ -10,7 +10,7 @@
 	register_plugin(
 		$thisfile, //Plugin id
 		'MultiField 🏖️', 	//Plugin name
-		'3.1.1', 		//Plugin version
+		'4.0', 		//Plugin version
 		'Multicolor',  //Plugin author
 		'#', //author website
 		i18n_r('multiField/DESCRIPTION'), //Plugin description
@@ -53,8 +53,11 @@
 
 	function save()
 	{
+		global $url;
+
 		if (isset($_POST['submitted'])) {
-			$file = file_get_contents(GSDATAOTHERPATH . 'multiField/' . $_POST["post-id"] . '.json');
+
+			$file = file_get_contents(GSDATAOTHERPATH . 'multiField/' . $url . '.json');
 
 			$multiFieldType = $_POST['type-multifield'];
 			$multiFieldLabel = $_POST['label-multifield'];
@@ -70,8 +73,9 @@
 			if (file_exists(GSDATAOTHERPATH . 'multiField/') == null) {
 				mkdir(GSDATAOTHERPATH . 'multiField/', 0755);
 			}
-			file_put_contents(GSDATAOTHERPATH . 'multiField/' . $_POST["post-id"] . '.json', $final);
+			file_put_contents(GSDATAOTHERPATH . 'multiField/' . $url . '.json', $final);
 		};
+	 
 	};
 
 //frontend
