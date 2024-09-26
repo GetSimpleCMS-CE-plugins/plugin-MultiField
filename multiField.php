@@ -10,7 +10,7 @@
 	register_plugin(
 		$thisfile, //Plugin id
 		'MultiField 🏖️', 	//Plugin name
-		'4.0', 		//Plugin version
+		'4.1', 		//Plugin version
 		'Multicolor',  //Plugin author
 		'#', //author website
 		i18n_r('multiField/DESCRIPTION'), //Plugin description
@@ -39,10 +39,7 @@
 	</div>';
 	}
 
-
 	add_action('edit-extras', 'extrasMultiField');
-
-
 
 	function extrasMultiField()
 	{

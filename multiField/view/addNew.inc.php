@@ -169,33 +169,20 @@ $url = $SITEURL . $GSADMIN . '/load.php?id=multiField';; ?>
 						echo " action ='" . $SITEURL . $GSADMIN . "/load.php?id=multiField&creator=" . $_POST['creator'] . "'";
 					}; ?> method="post">
 
-
-
-
-
 	<?php
 
 	$posFile = GSDATAOTHERPATH . 'multiField/position-' . $_GET['creator'] . '.txt';
 
 	if (file_exists($posFile)) {
-
-		echo '<script>
-
-	window.addEventListener("load",()=>{
-
-		document.querySelector(".pos").value = "' . file_get_contents($posFile) . '"
-
-
-	});
-
-	</script>';
+		echo '
+		<script>
+		window.addEventListener("load",()=>{
+			document.querySelector(".pos").value = "' . file_get_contents($posFile) . '"
+		});
+		</script>';
 	};; ?>
 
-
-
 	<div x-data="content">
-
-
 		<h4><i x-text="positionname"></i></h4>
 		<select name="position" class="pos" style="padding:10px;background:#fafafa;border:solid 1px #ddd;width:100%;margin:10px 0;border-radius:5px;">
 			<option x-text="up" value="up"></option>
@@ -212,9 +199,6 @@ $url = $SITEURL . $GSADMIN . '/load.php?id=multiField';; ?>
 				echo '<option ' . ($_GET['creator'] == $filePure ? 'selected="selected"' : '') . ' value="' . $filePure . '">' . $xmlFile->title . '</option>';
 			}; ?>
 		</select>
-
-
-
 
 		<h4><i x-text="addNewInput"></i></h4>
 
@@ -296,7 +280,6 @@ $url = $SITEURL . $GSADMIN . '/load.php?id=multiField';; ?>
 		uper: 'up',
 		bottomer: 'bottom',
 
-
 		sortable: function() {
 			if (this.sortableCheck == false) {
 				this.sortableCheck = true;
@@ -317,8 +300,6 @@ $url = $SITEURL . $GSADMIN . '/load.php?id=multiField';; ?>
 		},
 	}
 </script>
-
-
 
 <?php
 

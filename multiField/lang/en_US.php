@@ -1,9 +1,9 @@
 <?php
 
-$i18n = array(
+$i18n = [
 
 	"SETTINGS" => "MultiField Settings",
-	"DESCRIPTION" => "Creator for Custom Fields for concrete page",
+	"DESCRIPTION" => "Create Custom Fields for specific pages",
 	"PAYPAL" => "If you want to see new plugins, buy me a ☕ :)",
 	"ADDNEW" => "Add New",
 	"MIGRATE" => "Migrate",
@@ -18,15 +18,17 @@ $i18n = array(
 	"DONE" => "Done",
 	"SAVE" => "Save Inputs",
 	"GETPHOTO" => "Choose a photo",
+
 	"POSITION" => 'Position (Works for "All" only if not shared with other fields created for a specific page.)',
 	"UP"=>"Up",
 	"DOWN" =>"Down",
 	"ALL" => 'All',
+
 	//input
 
 	"TEXT" => "Text",
 	"TEXTAREA" => "Textarea",
-	"WYSYWIG" => "Wysywig",
+	"WYSYWIG" => "Wysiwyg",
 	"COLOR" => "Color",
 	"DATE" => "Date",
 	"FOTO" => "Image",
@@ -37,4 +39,4 @@ $i18n = array(
 	"OLDURL" => "Old Url",
 	"NEWURL" => "New Url",
 	"CHANGEURL" => "Change multiFields url",
-);
+];

@@ -1,6 +1,6 @@
 <?php
 
-$i18n = array(
+$i18n = [
 
 	"SETTINGS" => "MultiField Ustawienia",
 	"DESCRIPTION" => "Kreator pól niestandardowych dla konkretnej strony",
@@ -22,6 +22,7 @@ $i18n = array(
 	"UP" => "Góra",
 	"DOWN" => "Dół",
 	"ALL" => 'Wszystkie',
+
 	//input
 
 	"TEXT" => "Text",
@@ -37,4 +38,4 @@ $i18n = array(
 	"OLDURL" => "Stary URL",
 	"NEWURL" => "Nowy URL",
 	"CHANGEURL" => "Zmień URL multiField",
-);
+];

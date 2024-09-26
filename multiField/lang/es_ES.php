@@ -1,9 +1,9 @@
 <?php
 
-$i18n = array(
+$i18n = [
 
 	"SETTINGS" 			=> "multiCampos Config.",
-	"DESCRIPTION" 		=> "Creator for Custom Fields for concrete page",
+	"DESCRIPTION" 		=> "Create Custom Fields for specific pages",
 	"PAYPAL" 			=> "Si quieres ver nuevos plugins, cómprame un ☕ :)",
 	"ADDNEW" 			=> "Agregar Nuevo",
 	"MIGRATE" 			=> "Migrar",
@@ -39,4 +39,4 @@ $i18n = array(
 	"OLDURL" 			=> "Antigua Url",
 	"NEWURL" 			=> "URL Nueva",
 	"CHANGEURL" 		=> "Cambiar URL de multiCampos",
-);
+];
