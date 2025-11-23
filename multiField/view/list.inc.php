@@ -74,32 +74,48 @@ $url = $SITEURL . $GSADMIN . '/load.php?id=multiField';
 <hr>
 <ul class="multifield-list">
 
-    <?php foreach (glob(GSDATAOTHERPATH . 'multiField/settings-*.json') as $file) {
-        $pureFile = str_replace('settings-', '', pathinfo($file)['filename']);
-        $xm = @simplexml_load_file(GSDATAPAGESPATH . $pureFile . '.xml');
-        echo '
-	<li>
-		<p>';
-        
-        if($pureFile == 'allmultifield'){
-            echo 'All';
-        }else{
-            echo  @$xm->title ? $xm->title : 'Page no exist';
-
-        };
-        
-        echo '</p>
-		<div class="btns"><a href="' . $url . '&creator=' . $pureFile . '"> <img style="width:18px;;margin-left:5px;" src="' . $SITEURL . 'plugins/multiField/img/edit.svg"></a>
-		<a href="' . $url . '&delete=' . $pureFile . '" onclick="return confirm(`are you sure you want delete this item`)"><img style="width:18px;;filter:invert(100%)" src="' . $SITEURL . 'plugins/multiField/img/trash.svg"></a></div>
-	</li>
-';
-    }; ?>
+<?php 
+foreach (glob(GSDATAOTHERPATH . 'multiField/settings-*.json') as $file) {
+    $pureFile = str_replace('settings-', '', pathinfo($file, PATHINFO_FILENAME));
+    
+    $pageFile = GSDATAPAGESPATH . $pureFile . '.xml';
+    $title = 'Page no exist';
+    
+    if ($pureFile == 'allmultifield') {
+        $title = 'All';
+    } elseif (file_exists($pageFile)) {
+        $xm = @simplexml_load_file($pageFile);
+        if ($xm && isset($xm->title)) {
+            $title = (string)$xm->title;
+        }
+    }
+    
+    echo '
+    <li>
+        <p>' . htmlspecialchars($title) . '</p>
+        <div class="btns">
+            <a href="' . $url . '&creator=' . urlencode($pureFile) . '"> 
+                <img style="width:18px;margin-left:5px;" src="' . $SITEURL . 'plugins/multiField/img/edit.svg">
+            </a>
+            <a href="' . $url . '&delete=' . urlencode($pureFile) . '" onclick="return confirm(`Are you sure you want to delete this item?`)">
+                <img style="width:18px;filter:invert(100%)" src="' . $SITEURL . 'plugins/multiField/img/trash.svg">
+            </a>
+        </div>
+    </li>';
+} 
+?>
 
 </ul>
 
-<?php if (isset($_GET['delete'])) {
-    unlink(GSDATAOTHERPATH . 'multiField/' . $_GET['delete'] . '.json');
-    unlink(GSDATAOTHERPATH . 'multiField/settings-' . $_GET['delete'] . '.json');
-
+<?php 
+if (isset($_GET['delete']) && !empty($_GET['delete'])) {
+    $deleteFile = basename($_GET['delete']); // Sanitize input
+    $dataFile = GSDATAOTHERPATH . 'multiField/' . $deleteFile . '.json';
+    $settingsFile = GSDATAOTHERPATH . 'multiField/settings-' . $deleteFile . '.json';
+    
+    if (file_exists($dataFile)) unlink($dataFile);
+    if (file_exists($settingsFile)) unlink($settingsFile);
+    
     echo "<script> window.location.href = '" . $SITEURL . $GSADMIN . "/load.php?id=multiField'</script>";
-}; ?>
+}
+?>

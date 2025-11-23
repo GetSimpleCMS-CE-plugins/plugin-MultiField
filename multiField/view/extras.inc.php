@@ -68,18 +68,24 @@
 	global $toolbar;
 	global $EDOPTIONS;
 
-	if (isset($EDTOOL)) $EDTOOL = returnJsArray($EDTOOL);
-	if (isset($toolbar)) $toolbar = returnJsArray($toolbar); // handle plugins that corrupt this
+	// Initialize variables to avoid null values
+	$EDTOOL = $EDTOOL ?? '';
+	$toolbar = $toolbar ?? '';
+	$EDOPTIONS = $EDOPTIONS ?? '';
 
-	else if (strpos(trim($EDTOOL), '[[') !== 0 && strpos(trim($EDTOOL), '[') === 0) {
+	if (isset($EDTOOL) && !empty($EDTOOL)) $EDTOOL = returnJsArray($EDTOOL);
+	if (isset($toolbar) && !empty($toolbar)) $toolbar = returnJsArray($toolbar); // handle plugins that corrupt this
+
+	else if (strpos(trim($EDTOOL ?? ''), '[[') !== 0 && strpos(trim($EDTOOL ?? ''), '[') === 0) {
 		$EDTOOL = "[$EDTOOL]";
 	}
 
-	if (isset($toolbar) && strpos(trim($toolbar), '[[') !== 0 && strpos($toolbar, '[') === 0) {
+	if (isset($toolbar) && strpos(trim($toolbar ?? ''), '[[') !== 0 && strpos(trim($toolbar ?? ''), '[') === 0) {
 		$toolbar = '[$toolbar]';
 	}
-	$toolbar = isset($EDTOOL) ? ",toolbar: " . trim($EDTOOL, ",") : '';
-	$options = isset($EDOPTIONS) ? ',' . trim($EDOPTIONS, ",") : '';
+	
+	$toolbar = isset($EDTOOL) && !empty(trim($EDTOOL ?? '')) ? ",toolbar: " . trim($EDTOOL, ",") : '';
+	$options = isset($EDOPTIONS) && !empty(trim($EDOPTIONS ?? '')) ? ',' . trim($EDOPTIONS, ",") : '';
 ?>
 
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>

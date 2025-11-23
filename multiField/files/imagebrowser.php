@@ -60,7 +60,7 @@
 			$ext = @strtolower(substr($file, strrpos($file, '.') + 1));
 			if ($ext == 'jpg' || $ext == 'jpeg' || $ext == 'gif' || $ext == 'png'  || $ext == 'webp') {
 				$ss = @stat($path . $file);
-				list($width, $height) = getimagesize($path . $file);
+				list($width, $height) = @getimagesize($path . $file);
 				$filesArray[] = ['name' => $file, 'date' => @date('M j, Y', $ss['ctime']), 'size' => fSize($ss['size']), 'bytes' => $ss['size'], 'width' => $width, 'height' => $height, 'title' => @$info['title'], 'tags' => @$info['tags'], 'description' => @$info['description'], 'debug' => @$info['debug']];
 				$totalsize = $totalsize + $ss['size'];
 				$count++;
@@ -144,21 +144,37 @@
 									</a>
 								</td>
 								<td>
-									<a class="primarylink" href="javascript:void(0)" title="<?php i18n('SELECT_FILE') . ': ' . htmlspecialchars(@$upload['name']); ?>" onclick="<?php echo $onclick; ?>"> <?php echo htmlspecialchars($upload['name']); ?></a>
+									<a class="primarylink" href="javascript:void(0)" title="<?php i18n('SELECT_FILE') . ': ' . htmlspecialchars(@$upload['name']); ?>" onclick="<?php echo $onclick; ?>"> 
+										<?php echo htmlspecialchars($upload['name']); ?>
+									</a>
 									<p>
 										<?php if (@$upload['title']) echo '<b>' . htmlspecialchars($upload['title']) . '</b><br/>'; ?>
 										<?php if (@$upload['tags']) echo '<i>' . htmlspecialchars(implode(', ', $upload['tags'])) . '</i><br/>'; ?>
 										<?php if (@$upload['description']) echo preg_replace('/\r?\n/', '<br/>', htmlspecialchars($upload['description'])); ?>
 									</p>
 								</td>
-								<td style="white-space:nowrap;"><span><?php echo $upload['width']; ?> x <?php echo $upload['height']; ?></span></td>
-								<td style="width:80px;text-align:right;"><span><?php echo $upload['size']; ?></span></td>
+								<td style="white-space:nowrap;">
+									<span><?php echo $upload['width']; ?> x <?php echo $upload['height']; ?></span>
+								</td>
+								<td style="width:80px;text-align:right;">
+									<span><?php echo $upload['size']; ?></span>
+								</td>
 								<?php if (isset($filePerms) && isset($fileOwner['name'])) { ?>
-								<td style="width:70px;text-align:right;"><span><?php echo $fileOwner['name']; ?>/<?php echo $filePerms; ?></span></td>
+								<td style="width:70px;text-align:right;">
+									<span><?php echo $fileOwner['name']; ?>/<?php echo $filePerms; ?></span>
+								</td>
 								<?php } ?>
-								<td style="width:85px;text-align:right;"><span><?php echo shtDate($upload['date']); ?></span></td>
+								<td style="width:85px;text-align:right;">
+									<span><?php echo shtDate($upload['date']); ?></span>
+								</td>
 							</tr>
-							<?php if ($debug) echo '<tr><td colspan="4"><pre>' . htmlspecialchars(@$upload['debug']) . '</pre></td></tr>'; ?>
+							<?php if ($debug) echo '
+							<tr>
+								<td colspan="4">
+									<pre>' . htmlspecialchars(@$upload['debug']) . '</pre>
+								</td>
+							</tr>'; 
+							?>
 							<?php
 									}
 								}

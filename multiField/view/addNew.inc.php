@@ -57,7 +57,7 @@
 		border: none;
 		border-radius: 0 !important;
 		font-weight: inherit !important;
-		background: #146C94 !important;
+		background: green !important;
 		color: #fff !important;
 		border: none !important;
 		border-radius: 5px !important;
@@ -77,7 +77,6 @@
 		background: #D21312;
 		color: #fff;
 		grid-column: 3/4;
-		width: 100%;
 		border: none;
 	}
 
@@ -153,7 +152,8 @@
 <?php
 global $SITEURL;
 global $GSADMIN;
-$url = $SITEURL . $GSADMIN . '/load.php?id=multiField';; ?>
+$url = $SITEURL . $GSADMIN . '/load.php?id=multiField'; 
+?>
 
 <div class="title-bar">
 	<h3><?php echo i18n_r('multiField/MULTIFIELDCREATE'); ?></h3>
@@ -170,33 +170,33 @@ $url = $SITEURL . $GSADMIN . '/load.php?id=multiField';; ?>
 					}; ?> method="post">
 
 	<?php
-
-	$posFile = GSDATAOTHERPATH . 'multiField/position-' . $_GET['creator'] . '.txt';
-
-	if (file_exists($posFile)) {
+	$posFile = GSDATAOTHERPATH . 'multiField/position-' . ($_GET['creator'] ?? '') . '.txt';
+	
+	if (file_exists($posFile) && filesize($posFile) > 0) {
 		echo '
 		<script>
 		window.addEventListener("load",()=>{
-			document.querySelector(".pos").value = "' . file_get_contents($posFile) . '"
+			document.querySelector(".pos").value = "' . addslashes(file_get_contents($posFile)) . '"
 		});
 		</script>';
-	};; ?>
+	} 
+	?>
 
 	<div x-data="content">
 		<h4><i x-text="positionname"></i></h4>
-		<select name="position" class="pos" style="padding:10px;background:#fafafa;border:solid 1px #ddd;width:100%;margin:10px 0;border-radius:5px;">
+		<select name="position" class="pos" style="padding:10px;background:#fafafa;border:solid 1px #ddd;width:98%;margin:10px 0;border-radius:5px;">
 			<option x-text="up" value="up"></option>
 			<option x-text="bottom" value="bottom"></option>
 		</select>
 
 		<h4><i x-text="selectPage"></i></h4>
 
-		<select name="filename" style="padding:10px;background:#fafafa;border:solid 1px #ddd;width:100%;margin:10px 0;border-radius:5px;">
+		<select name="filename" style="padding:10px;background:#fafafa;border:solid 1px #ddd;width:98%;margin:10px 0;border-radius:5px;">
 			<option value="allmultifield">All</option>
 			<?php foreach (glob(GSDATAPAGESPATH . '*.xml') as $file) {
 				$xmlFile = simplexml_load_file($file);
 				$filePure = pathinfo($file)['filename'];
-				echo '<option ' . ($_GET['creator'] == $filePure ? 'selected="selected"' : '') . ' value="' . $filePure . '">' . $xmlFile->title . '</option>';
+				echo '<option ' . (($_GET['creator'] ?? '') == $filePure ? 'selected="selected"' : '') . ' value="' . $filePure . '">' . $xmlFile->title . '</option>';
 			}; ?>
 		</select>
 
@@ -262,11 +262,12 @@ $url = $SITEURL . $GSADMIN . '/load.php?id=multiField';; ?>
 			"<?php echo i18n_r('multiField/DATE'); ?>", "<?php echo i18n_r('multiField/FOTO'); ?>", "<?php echo i18n_r('multiField/LINK'); ?>", 'Checkbox', 'Dropdown'
 		],
 		inputList: <?php
-					if ($_GET['creator'] !== '') {
-						echo file_get_contents(GSDATAOTHERPATH . 'multiField/settings-' . $_GET['creator'] . '.json');
-					} else {
-						echo '[]';
-					}; ?>,
+		if (($_GET['creator'] ?? '') !== '') {
+			$creatorFile = GSDATAOTHERPATH . 'multiField/settings-' . $_GET['creator'] . '.json';
+			echo file_exists($creatorFile) ? file_get_contents($creatorFile) : '[]';
+		} else {
+			echo '[]';
+		}; ?>,
 
 		sortableCheck: false,
 
@@ -304,16 +305,24 @@ $url = $SITEURL . $GSADMIN . '/load.php?id=multiField';; ?>
 <?php
 
 if (isset($_POST['submit'])) {
-	$multiFieldType = $_POST['multi-field-type'];
-	$multiFieldLabel = $_POST['multi-field-label'];
-
-	$ars = array();
-
-	foreach ($multiFieldLabel as $key => $value) {
-		$ars[$multiFieldLabel[$key]] = ["label" => $multiFieldLabel[$key], "value" => "", "type" => $multiFieldType[$key]];
-	};
-
-	$final = json_encode($ars);
+    $multiFieldType = $_POST['multi-field-type'] ?? [];
+    $multiFieldLabel = $_POST['multi-field-label'] ?? [];
+    
+    if (empty($multiFieldType) || empty($multiFieldLabel)) {
+        // Handle empty data case
+        $ars = [];
+    } else {
+        $ars = array();
+        foreach ($multiFieldLabel as $key => $value) {
+            $ars[$multiFieldLabel[$key]] = [
+                "label" => $multiFieldLabel[$key] ?? '', 
+                "value" => "", 
+                "type" => $multiFieldType[$key] ?? ''
+            ];
+        };
+    }
+    
+    $final = json_encode($ars);
 
 	if (file_exists(GSDATAOTHERPATH . 'multiField/') == null) {
 		mkdir(GSDATAOTHERPATH . 'multiField/', 0755);
@@ -327,4 +336,5 @@ if (isset($_POST['submit'])) {
 
 	echo ("<meta http-equiv='refresh' content='0'>");
 	echo "<script> window.location.href = '" . $SITEURL . $GSADMIN . "/load.php?id=multiField&creator=" . $_POST['filename'] . "'</script>";
-}; ?>
+}; 
+?>
