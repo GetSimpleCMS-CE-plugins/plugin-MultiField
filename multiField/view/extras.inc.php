@@ -191,7 +191,22 @@
                 $parent = (string)$xmlFile->parent;
                 
                  if (!empty($parent)) {
-                    $fullSlug = $parent . '/' . $slug;
+                     $parentPath = array();
+                    $currentParent = $parent;
+                     while (!empty($currentParent)) {
+                        array_unshift($parentPath, $currentParent);
+                        
+                         $parentFile = GSDATAPAGESPATH . $currentParent . '.xml';
+                        if (file_exists($parentFile)) {
+                            $parentXml = simplexml_load_file($parentFile);
+                            $currentParent = (string)$parentXml->parent;
+                        } else {
+                            break;
+                        }
+                    }
+                     if (!empty($parentPath)) {
+                        $fullSlug = implode('/', $parentPath) . '/' . $slug;
+                    }
                 }
                 
                 $link = $SITEURL . $fullSlug;
@@ -203,6 +218,7 @@
         </select>
     </div>
 </template>
+
 
 		</div>
 	</template>
