@@ -98,7 +98,7 @@
 					<label x-text="data['label'].replace(/-/g,' ')"></label>
 					<input style="margin:5px 0;display:block;" type="hidden" :value="data['label']" name="label-multifield[]">
 					<input style="margin:5px 0;display:block;" type="hidden" :value="data['type']" name="type-multifield[]">
-					<textarea x-te="dater[data['label']]!==undefined ? dater[data['label']]['value']:''" x-init="CKEDITOR.replace( $el, {
+					<textarea x-html="dater[data['label']]!==undefined ? dater[data['label']]['value']:''" x-init="CKEDITOR.replace( $el, {
 						skin : 'getsimple',
 						forcePasteAsPlainText : true,
 						language : '<?php global $EDLANG; echo $EDLANG; ?>',
