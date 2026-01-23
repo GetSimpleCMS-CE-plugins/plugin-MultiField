@@ -174,50 +174,51 @@
 					</div>
 				</div>
 			</template>
-<template x-if="data['type']=='link'"> 
-    <div>
-        <label x-text="data['label'].replace(/-/g,' ')"></label>
-        <input style="margin:5px 0;display:block;" type="hidden" :value="data['label']" name="label-multifield[]">
-        <input style="margin:5px 0;display:block;" type="hidden" :value="data['type']" name="type-multifield[]">
-        <select name="multifield[]" style="background:#fff;border:solid 1px #ddd;width:100%;padding:10px;border-radius:5px;">
-            <?php 
-            global $SITEURL;
-            
-            foreach (glob(GSDATAPAGESPATH . '*.xml') as $file) {
-                $xmlFile = simplexml_load_file($file);
-                $slug = pathinfo($file)['filename'];
-                
-                 $fullSlug = $slug;
-                $parent = (string)$xmlFile->parent;
-                
-                 if (!empty($parent)) {
-                     $parentPath = array();
-                    $currentParent = $parent;
-                     while (!empty($currentParent)) {
-                        array_unshift($parentPath, $currentParent);
-                        
-                         $parentFile = GSDATAPAGESPATH . $currentParent . '.xml';
-                        if (file_exists($parentFile)) {
-                            $parentXml = simplexml_load_file($parentFile);
-                            $currentParent = (string)$parentXml->parent;
-                        } else {
-                            break;
-                        }
-                    }
-                     if (!empty($parentPath)) {
-                        $fullSlug = implode('/', $parentPath) . '/' . $slug;
-                    }
-                }
-                
-                $link = $SITEURL . $fullSlug;
-                $title = (string)$xmlFile->title;
-                
-                echo '<option :selected="dater[data[`label`]][`value`] == $el.value" value="' . htmlspecialchars($link, ENT_QUOTES) . '">' . htmlspecialchars($title, ENT_QUOTES) . '</option>';
-            }
-            ?>
-        </select>
-    </div>
-</template>
+			
+			<template x-if="data['type']=='link'"> 
+				<div>
+					<label x-text="data['label'].replace(/-/g,' ')"></label>
+					<input style="margin:5px 0;display:block;" type="hidden" :value="data['label']" name="label-multifield[]">
+					<input style="margin:5px 0;display:block;" type="hidden" :value="data['type']" name="type-multifield[]">
+					<select name="multifield[]" style="background:#fff;border:solid 1px #ddd;width:100%;padding:10px;border-radius:5px;">
+						<?php 
+						global $SITEURL;
+			
+						foreach (glob(GSDATAPAGESPATH . '*.xml') as $file) {
+							$xmlFile = simplexml_load_file($file);
+							$slug = pathinfo($file)['filename'];
+				
+							 $fullSlug = $slug;
+							$parent = (string)$xmlFile->parent;
+				
+							 if (!empty($parent)) {
+								 $parentPath = array();
+								$currentParent = $parent;
+								 while (!empty($currentParent)) {
+									array_unshift($parentPath, $currentParent);
+						
+									 $parentFile = GSDATAPAGESPATH . $currentParent . '.xml';
+									if (file_exists($parentFile)) {
+										$parentXml = simplexml_load_file($parentFile);
+										$currentParent = (string)$parentXml->parent;
+									} else {
+										break;
+									}
+								}
+								 if (!empty($parentPath)) {
+									$fullSlug = implode('/', $parentPath) . '/' . $slug;
+								}
+							}
+				
+							$link = $SITEURL . $fullSlug;
+							$title = (string)$xmlFile->title;
+				
+							echo '<option :selected="dater[data[`label`]][`value`] == $el.value" value="' . htmlspecialchars($link, ENT_QUOTES) . '">' . htmlspecialchars($title, ENT_QUOTES) . '</option>';
+						}
+						?>
+					</select>
+				</div>
+			</template>
 
 
 		</div>
