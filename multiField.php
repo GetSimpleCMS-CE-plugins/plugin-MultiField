@@ -10,7 +10,7 @@
 	register_plugin(
 		$thisfile, //Plugin id
 		'MultiField 🏖️', 	//Plugin name
-		'4.2', 		//Plugin version
+		'4.3', 		//Plugin version
 		'Multicolor',  //Plugin author
 		'#', //author website
 		i18n_r('multiField/DESCRIPTION'), //Plugin description
@@ -68,7 +68,7 @@
 				if (isset($multiFieldLabel[$key]) && isset($multiFieldType[$key])) {
 					$ars[$multiFieldLabel[$key]] = [
 						"label" => $multiFieldLabel[$key], 
-						"value" => htmlentities($value, ENT_QUOTES, 'UTF-8'), 
+						"value" => $value, 
 						"type" => $multiFieldType[$key]
 					];
 				}

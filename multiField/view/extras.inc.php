@@ -98,7 +98,7 @@
 					<label x-text="data['label'].replace(/-/g,' ')"></label>
 					<input style="margin:5px 0;display:block;" type="hidden" :value="data['label']" name="label-multifield[]">
 					<input style="margin:5px 0;display:block;" type="hidden" :value="data['type']" name="type-multifield[]">
-					<textarea x-html="dater[data['label']]!==undefined ? dater[data['label']]['value']:''" x-init="CKEDITOR.replace( $el, {
+					<textarea x-te="dater[data['label']]!==undefined ? dater[data['label']]['value']:''" x-init="CKEDITOR.replace( $el, {
 						skin : 'getsimple',
 						forcePasteAsPlainText : true,
 						language : '<?php global $EDLANG; echo $EDLANG; ?>',
@@ -174,25 +174,36 @@
 					</div>
 				</div>
 			</template>
+<template x-if="data['type']=='link'"> 
+    <div>
+        <label x-text="data['label'].replace(/-/g,' ')"></label>
+        <input style="margin:5px 0;display:block;" type="hidden" :value="data['label']" name="label-multifield[]">
+        <input style="margin:5px 0;display:block;" type="hidden" :value="data['type']" name="type-multifield[]">
+        <select name="multifield[]" style="background:#fff;border:solid 1px #ddd;width:100%;padding:10px;border-radius:5px;">
+            <?php 
+            global $SITEURL;
+            
+            foreach (glob(GSDATAPAGESPATH . '*.xml') as $file) {
+                $xmlFile = simplexml_load_file($file);
+                $slug = pathinfo($file)['filename'];
+                
+                 $fullSlug = $slug;
+                $parent = (string)$xmlFile->parent;
+                
+                 if (!empty($parent)) {
+                    $fullSlug = $parent . '/' . $slug;
+                }
+                
+                $link = $SITEURL . $fullSlug;
+                $title = (string)$xmlFile->title;
+                
+                echo '<option :selected="dater[data[`label`]][`value`] == $el.value" value="' . htmlspecialchars($link, ENT_QUOTES) . '">' . htmlspecialchars($title, ENT_QUOTES) . '</option>';
+            }
+            ?>
+        </select>
+    </div>
+</template>
 
-			<template x-if=" data['type']=='link'">
-				<div>
-					<label x-text="data['label'].replace(/-/g,' ')"></label>
-					<input style="margin:5px 0;display:block;" type="hidden" :value="data['label']" name="label-multifield[]">
-					<input style="margin:5px 0;display:block;" type="hidden" :value="dater[data]['type']" name="type-multifield[]">
-					<select name="multifield[]" style="background:#fff;border:solid 1px #ddd;width:100%;padding:10px;border-radius:5px;">
-						<?php foreach (glob(GSDATAPAGESPATH . '*.xml') as $file) {
-							$xmlFile = simplexml_load_file($file);
-							$filePure = pathinfo($file)['filename'];
-							global $SITEURL;
-							global $GSADMIN;
-
-							$link = $SITEURL  . $filePure;
-							echo '<option :selected="dater[data[`label`]][`value`] == $el.value" value="' . $link . '">' . $xmlFile->title . '</option>';
-						}; ?>
-					</select>
-				</div>
-			</template>
 		</div>
 	</template>
 </div>
