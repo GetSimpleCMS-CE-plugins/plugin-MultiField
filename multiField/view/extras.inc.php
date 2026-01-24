@@ -30,6 +30,8 @@
 		height: 35px;
 		margin: 5px 0 0 5px;
 	}
+	
+	.mf-block {margin-bottom:20px!important;}
 </style>
 
 <?php
@@ -94,7 +96,7 @@
 	<template x-for="(data,index) in dates" :key="index">
 		<div>
 			<template x-if="data['type']=='wysywig'">
-				<div>
+				<div class="mf-block">
 					<label x-text="data['label'].replace(/-/g,' ')"></label>
 					<input style="margin:5px 0;display:block;" type="hidden" :value="data['label']" name="label-multifield[]">
 					<input style="margin:5px 0;display:block;" type="hidden" :value="data['type']" name="type-multifield[]">
@@ -121,7 +123,7 @@
 			</template>
 
 			<template x-if="data['type']=='textarea'">
-				<div>
+				<div class="mf-block">
 					<label x-text="data['label'].replace(/-/g,' ')"></label>
 					<input style="margin:5px 0;display:block;" type="hidden" :value="data['label']" name="label-multifield[]">
 					<input style="margin:5px 0;display:block;" type="hidden" :value="data['type']" name="type-multifield[]">
@@ -131,7 +133,7 @@
 			</template>
 
 			<template x-if="data['type']=='dropdown'">
-				<div>
+				<div class="mf-block">
 					<label x-text="data['label'].replace(/-/g,' ').split('[')[0]"></label>
 					<input style="margin:5px 0;display:block;" type="hidden" :value="data['label']" name="label-multifield[]">
 					<input style="margin:5px 0;display:block;" type="hidden" :value="data['type']" name="type-multifield[]">
@@ -146,7 +148,7 @@
 
 
 			<template x-if="data['type']=='checkbox'">
-				<div>
+				<div class="mf-block">
 					<label x-text="data['label'].replace(/-/g,' ')"></label>
 					<input style="margin:5px 0;display:block;" type="hidden" :value="data['label']" name="label-multifield[]">
 					<input style="margin:5px 0;display:block;" type="hidden" :value="data['type']" name="type-multifield[]">
@@ -155,7 +157,7 @@
 			</template>
 
 			<template x-if=" data['type']=='text' || data['type']=='color' || data['type']=='date' || data['type']=='date'">
-				<div>
+				<div class="mf-block">
 					<label x-text="data['label'].replace(/-/g,' ')"></label>
 					<input style="margin:5px 0;display:block;" type="hidden" :value="data['label']" name="label-multifield[]">
 					<input style="margin:5px 0;display:block;" type="hidden" :value="data['type']" name="type-multifield[]">
@@ -164,19 +166,46 @@
 			</template>
 
 			<template x-if="data['type']=='foto'">
-				<div>
+				<div class="mf-block">
 					<label x-text="data['label'].replace(/-/g,' ')"></label>
 					<input style="margin:5px 0;display:block;" type="hidden" :value="data['label']" name="label-multifield[]">
 					<input style="margin:5px 0;display:block;" type="hidden" :value="data['type']" name="type-multifield[]">
-					<div style="display:flex;gap:2px">
-						<input style="margin:5px 0;display:inline-block; width:80%" :type="data['type']" :value="dater[data['label']]['value']" :data-name="data['label']" class="foto" name="multifield[]">
-						<button style="background:#000;color:#fff;border:none;padding:3px;cursor:pointer;border-radius:2px;width:20%" @click.prevent="window.open(`<?php echo $SITEURL; ?>plugins/multiField/files/imagebrowser.php?&func=multifield[]&count=${index}`,'myWindow','tolbar=no,scrollbars=no,menubar=no,width=500,height=500')"><?php echo i18n_r('multiField/GETPHOTO'); ?></button>
+					<div style="display:flex;gap:10px;align-items:center;">
+						
+						<div style="width:120px;height:80px;border:1px solid #ddd;border-radius:5px;overflow:hidden;flex-shrink:0;background:#f5f5f5;display:flex;align-items:center;justify-content:center;">
+							<img 
+								x-show="dater[data['label']] && dater[data['label']]['value']" 
+								:src="dater[data['label']] ? dater[data['label']]['value'] : ''" 
+								style="max-width:100%;max-height:100%;object-fit:cover;"
+								alt="Preview"
+							>
+							<span 
+								x-show="!dater[data['label']] || !dater[data['label']]['value']" 
+								style="color:#999;font-size:12px;"
+							>No image</span>
+						</div>
+						
+						<div style="display:flex;gap:2px;flex:1;">
+							<input 
+								style="margin:5px 0;display:inline-block;width:80%;margin-right:10px;" 
+								:type="data['type']" 
+								:value="dater[data['label']]['value']" 
+								:data-name="data['label']" 
+								class="foto" 
+								name="multifield[]"
+								@input="$el.previousElementSibling.previousElementSibling.querySelector('img').src = $el.value"
+							>
+							<button 
+								style="background:#FF9900;color:#fff;border:none;padding:3px;cursor:pointer;border-radius:5px;width:20%" 
+								@click.prevent="window.open(`<?php echo $SITEURL; ?>plugins/multiField/files/imagebrowser.php?&func=multifield[]&count=${index}`,'myWindow','tolbar=no,scrollbars=no,menubar=no,width=500,height=500')"
+							><?php echo i18n_r('multiField/GETPHOTO'); ?></button>
+						</div>
 					</div>
 				</div>
 			</template>
 			
 			<template x-if="data['type']=='link'"> 
-				<div>
+				<div class="mf-block">
 					<label x-text="data['label'].replace(/-/g,' ')"></label>
 					<input style="margin:5px 0;display:block;" type="hidden" :value="data['label']" name="label-multifield[]">
 					<input style="margin:5px 0;display:block;" type="hidden" :value="data['type']" name="type-multifield[]">
@@ -184,20 +213,22 @@
 						<?php 
 						global $SITEURL;
 			
+						$pages = array();
+
 						foreach (glob(GSDATAPAGESPATH . '*.xml') as $file) {
 							$xmlFile = simplexml_load_file($file);
 							$slug = pathinfo($file)['filename'];
-				
-							 $fullSlug = $slug;
+
+							$fullSlug = $slug;
 							$parent = (string)$xmlFile->parent;
-				
-							 if (!empty($parent)) {
-								 $parentPath = array();
+
+							if (!empty($parent)) {
+								$parentPath = array();
 								$currentParent = $parent;
-								 while (!empty($currentParent)) {
+								while (!empty($currentParent)) {
 									array_unshift($parentPath, $currentParent);
-						
-									 $parentFile = GSDATAPAGESPATH . $currentParent . '.xml';
+
+									$parentFile = GSDATAPAGESPATH . $currentParent . '.xml';
 									if (file_exists($parentFile)) {
 										$parentXml = simplexml_load_file($parentFile);
 										$currentParent = (string)$parentXml->parent;
@@ -205,21 +236,35 @@
 										break;
 									}
 								}
-								 if (!empty($parentPath)) {
+								if (!empty($parentPath)) {
 									$fullSlug = implode('/', $parentPath) . '/' . $slug;
 								}
 							}
-				
+
 							$link = $SITEURL . $fullSlug;
 							$title = (string)$xmlFile->title;
-				
-							echo '<option :selected="dater[data[`label`]][`value`] == $el.value" value="' . htmlspecialchars($link, ENT_QUOTES) . '">' . htmlspecialchars($title, ENT_QUOTES) . '</option>';
+							
+							$displayText = (!empty($parent) ? $parent . ' » ' : '') . $title;
+
+							$pages[] = array(
+								'link' => $link,
+								'display' => $displayText
+							);
+						}
+
+						usort($pages, function($a, $b) {
+							return strcasecmp($a['display'], $b['display']);
+						});
+
+						echo '<option value="javascript:;"> -- </option>';
+
+						foreach ($pages as $page) {
+							echo '<option :selected="dater[data[\'label\']][\'value\'] == $el.value" value="' . htmlspecialchars($page['link'], ENT_QUOTES) . '">' . htmlspecialchars($page['display'], ENT_QUOTES) . '</option>';
 						}
 						?>
 					</select>
 				</div>
 			</template>
-
 
 		</div>
 	</template>
