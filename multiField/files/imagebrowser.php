@@ -140,7 +140,7 @@
 							<tr class="All images">
 								<td>
 									<a href="javascript:void(0)" title="<?php i18n('SELECT_FILE') . ': ' . htmlspecialchars(@$upload['name']); ?>" onclick="<?php echo $onclick; ?>">
-									<img style="width:60px;height:60px;object-fit: cover" src="<?php echo $SITEURL . 'data/uploads/' . $subPath . $upload['name']; ?>" />
+									<img style="width:100px; height:60px; object-fit: cover" src="<?php echo $SITEURL . 'data/uploads/' . $subPath . $upload['name']; ?>" />
 									</a>
 								</td>
 								<td>
