@@ -10,7 +10,7 @@
 	register_plugin(
 		$thisfile, //Plugin id
 		'MultiField 🏖️', 	//Plugin name
-		'4.5', 		//Plugin version
+		'5.0', 		//Plugin version
 		'Multicolor',  //Plugin author
 		'#', //author website
 		i18n_r('multiField/DESCRIPTION'), //Plugin description

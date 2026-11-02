@@ -19,10 +19,33 @@ $i18n = [
 	"SAVE" => "Save Inputs",
 	"GETPHOTO" => "Choose a photo",
 
-	"POSITION" => 'Position (Works for "All" only if not shared with other fields created for a specific page.)',
+	"POSITION" => "Default position for these fields",
+	"POSITION_HELP" => "Fields inherit this default unless they set their own position below. Page defaults override the \"All\" default.",
+	"FIELDPOSITION" => "Position",
+	"DRAGTIP" => "Drag to reorder",
 	"UP"=>"Up",
 	"DOWN" =>"Down",
 	"ALL" => 'All',
+
+	// inheritance
+	"INHERIT" => "Inherit",
+	"INHERIT_ALL" => "Inherit from All",
+	"DEFAULT" => "Default",
+
+	// list / hierarchy
+	"ALLPAGES" => "All pages",
+	"HIERARCHY_HELP" => "Hierarchy: All pages → page → field. Position is inherited down the tree; a value set on a lower level always wins. Highlighted badges are set explicitly, plain badges are inherited.",
+	"POS_OWN" => "set here",
+	"POS_PAGE_DEFAULT" => "page default",
+	"POS_ALL_DEFAULT" => "All default",
+	"POS_FROM_ALL" => "from All",
+	"POS_DEFAULT" => "default",
+	"NOFIELDS" => "No fields yet",
+	"ADDFIELDS" => "Add fields",
+	"EDIT" => "Edit",
+	"DELETE" => "Delete",
+	"MISSINGPAGES" => "Pages that no longer exist",
+	"PAGEMISSING" => "Page no exist",
 
 	//input
 
